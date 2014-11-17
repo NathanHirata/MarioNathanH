@@ -5,7 +5,7 @@
         <group>
             <file>file:/C:/xampp/htdocs/MarioNathanH/public_html/js/resources.js</file>
             <file>file:/C:/xampp/htdocs/MarioNathanH/public_html/js/screens/play.js</file>
-            <file>file:/C:/xampp/htdocs/MarioNathanH/public_html/entities.js</file>
+            <file>file:/C:/xampp/htdocs/MarioNathanH/public_html/js/entities/entities.js</file>
             <file>file:/C:/xampp/htdocs/MarioNathanH/public_html/js/game.js</file>
         </group>
     </open-files>
