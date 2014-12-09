@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="16" height="9" tilewidth="70" tileheight="70" backgroundcolor="#aa0000">
+<map version="1.0" orientation="orthogonal" width="16" height="9" tilewidth="70" tileheight="70" backgroundcolor="#07aa43">
  <tileset firstgid="1" name="background-tiles" tilewidth="70" tileheight="70">
   <image source="../img/background-tiles.png" width="910" height="910"/>
  </tileset>
@@ -32,7 +32,7 @@
   </data>
  </layer>
  <objectgroup name="EnemyEntities" width="16" height="9">
-  <object name="BadGuy" x="770" y="494" width="348" height="70"/>
-  <object name="BadGuy" x="421" y="279" width="142" height="67"/>
+  <object name="BadGuy" x="771" y="487" width="348" height="70"/>
+  <object name="BadGuy" x="421" y="282" width="138" height="67"/>
  </objectgroup>
 </map>

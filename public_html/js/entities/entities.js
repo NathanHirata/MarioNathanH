@@ -21,19 +21,28 @@ game.PlayerEntity = me.Entity.extend({
     
         this.renderable.setCurrentAnimation("idle");
         
-        thiss.big = false;
+        this.big = false;
         this.body.setVelocity(5, 20);
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
     },
     
     update: function(delta) {
-        if(me.input.isKeyPressed("right")){
-            this.body.vel.x += this.body.accel.x * me.timer.tick;
-            
-        }      
-        else{
-            this.body.vel.x = 0;
-        }
+         if (me.input.isKeyPressed('left')) {
+            this.flipX(true);
+            this.body.vel.x -= this.body.accel.x * me.timer.tick;
+            if (!this.renderable.isCurrentAnimation("smallWalk")) {
+                this.renderable.setCurrentAnimation("smallWalk");
+            }
+        } else if (me.input.isKeyPressed('right')) {
+            this.flipX(false);
+            this.body.vel.x += this.body.accel.x * me.timer.tick;
+            if (!this.renderable.isCurrentAnimation("smallWalk")) {
+                this.renderable.setCurrentAnimation("smallWalk");
+            }
+        } else {
+            this.body.vel.x = 0;
+            this.renderable.setCurrentAnimation("idle");
+        }
         
         this.body.update(delta);
         me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -60,6 +69,18 @@ game.PlayerEntity = me.Entity.extend({
             else {
                 this.renderable.setCurrentAnimation("bigIdle");
             }
+        }
+        
+        if (me.input.isKeyPressed('jump')) {
+            // make sure we are not already jumping or falling
+            if (!this.body.jumping && !this.body.falling) {
+                // set current vel to the maximum defined value
+                // gravity will then do the rest
+                this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
+                // set the jumping flag
+                this.body.jumping = true;
+            }
+ 
         }
         
         
@@ -103,11 +124,12 @@ game.BadGuy = me.Entity.extend({
                 }
         }]);
     
+    this.width = settings.width;
     this.spritewidth = 60;
-    x = this.posss.x;
+    x = this.pos.x;
     this.startX = x;
-    this.endX = x + width - this.spritewidth;
-    this.pos.x = x + width - this.spritewidth;
+    this.endX = x + this.width - this.spritewidth;
+    this.pos.x = x + this.width - this.spritewidth;
     this.updateBounds();
     
     this.alwaysUpdate = true;
@@ -147,7 +169,7 @@ game.BadGuy = me.Entity.extend({
     },
     
     collideHandler: function(response) {
-        var ydif = this.poss.y - response.b.pos.y;
+        var ydif = this.pos.y - response.b.pos.y;
         console.log(ydif);
         
         if(response.b.type === 'badguy') {
@@ -175,7 +197,7 @@ game.BadGuy = me.Entity.extend({
 game.Mushroom = me.Entity.extend({
         init: function(x, y, settings) {
         this._super(me.Entity, 'init', [x, y, {
-                image: "mario",
+                image: "mushroom",
                 spritewidth: "64",
                 spriteheight: "64",
                 width: 64,
